@@ -46,14 +46,13 @@ const Productapi = async (req, res) => {
       status: true,
     });
   } catch (error) {
-    console.log("Error in login", error);
+    console.log("Error in find", error);
   }
 }
 // =======================================================================================================
 // ===================================== add to cart id sand===============================================
-
 const AddToCart = async (req, res) => {
-  const id  = req.params.id;
+  const id = req.params.id;
   console.log(id)
   const saveCartData = new Cart({
     item: id,
@@ -64,23 +63,49 @@ const AddToCart = async (req, res) => {
     data: savedata,
   });
 };
-
 // ============================  populate krna ===========================================================
 const getCart = async (req, res) => {
-    const existData = await Cart.find({}).populate("item")
-    res.json({ message: "true", data: existData })
+  const existData = await Cart.find({}).populate("item")
+  res.json({ message: "true", data: existData })
 };
-// =========================================================================================================
 
-const  deleteCartItem = async (req, res) => {
-   const id = req.params.id;
+// =========================================================================================================
+const deleteCartItem = async (req, res) => {
+  const id = req.params.id;
   console.log(id);
-  const getData = await Cart.findOneAndDelete({ _id: id }); 
+  const getData = await Cart.findOneAndDelete({ _id: id });
   res.json({
     success: true,
   });
+};
+// =========================AddQuantity ==========================================================
+const AddQuantity = async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const data = await Cart.findByIdAndUpdate(id);
+  data.quantity = parseInt(data.quantity + 1);
+  await data.save();
+  res.status(200).json(data);
+};
+// =============================subQuantity===============================================================
+const subQuantity = async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const data = await Cart.findByIdAndUpdate(id);
+  data.quantity = parseInt(data.quantity - 1);
+  await data.save();
+  res.status(200).json(data);
+};
+
+// ================================updateData=======================================================================
+
+const updateData = async (req, res) => {
+  console.log(req.params.id)
+  console.log(req.body)
+  const updateData = await CreatetproducModel.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  console.log(updateData)
+
 
 };
 
-
-module.exports = { Createproduct, Productapi, AddToCart, getCart , deleteCartItem}
+module.exports = { Createproduct, Productapi, AddToCart, getCart, deleteCartItem, AddQuantity, subQuantity, updateData }
