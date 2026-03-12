@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const Users = require("../Codemodels/Codemodels");
+const Codemodels = require("../Codemodels/Codemodels");
 
 // Create a JWTSEcret
 
@@ -10,7 +10,7 @@ const protectRoute = async (req, res, next) => {
     token = authHeader.split(" ")[1];
     jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
       if (decoded) {
-        let result = await Users.findOne({ _id: decoded.userId });
+        let result = await Codemodels.findOne({ _id: decoded.userId });
         req.user = result;
         next();
       } else {
