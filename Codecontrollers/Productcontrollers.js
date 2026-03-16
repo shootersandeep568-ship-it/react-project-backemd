@@ -5,8 +5,6 @@ const fs = require("fs");
 
 // ========================== ======================================================
 const Createproduct = async (req, res) => {
-  console.log("Createproduct", req.body);
-  console.log(req.file);
 
   const { title, description, reting, price, category, pyandmy } = req.body;
   const Createproduct = new CreatetproducModel({
@@ -31,7 +29,7 @@ const Createproduct = async (req, res) => {
   }
   else {
     res.json({
-      message: "Something Wrong",
+      message: "Error in create",
       status: false,
     });
   }
@@ -66,7 +64,8 @@ const AddToCart = async (req, res) => {
 // ============================  populate krna ===========================================================
 const getCart = async (req, res) => {
   const existData = await Cart.find({}).populate("item")
-  res.json({ message: "true", data: existData })
+  console.log(existData)
+  // res.json({ message: "true", data: existData })
 };
 
 // =========================================================================================================
@@ -78,27 +77,28 @@ const deleteCartItem = async (req, res) => {
     success: true,
   });
 };
-// =========================AddQuantity ==========================================================
+// =========================AddQuantity ===================================================================
 const AddQuantity = async (req, res) => {
   const id = req.params.id;
   console.log(id);
   const data = await Cart.findByIdAndUpdate(id);
   data.quantity = parseInt(data.quantity + 1);
   await data.save();
-  res.status(200).json(data);
+
 };
+
 // =============================subQuantity===============================================================
+
 const subQuantity = async (req, res) => {
   const id = req.params.id;
   console.log(id);
   const data = await Cart.findByIdAndUpdate(id);
   data.quantity = parseInt(data.quantity - 1);
   await data.save();
-  res.status(200).json(data);
+
 };
 
-// ================================updateData=======================================================================
-
+// ================================updateData=================================================================
 const updateData = async (req, res) => {
   console.log(req.params.id)
   console.log(req.body)
@@ -108,4 +108,13 @@ const updateData = async (req, res) => {
 
 };
 
-module.exports = { Createproduct, Productapi, AddToCart, getCart, deleteCartItem, AddQuantity, subQuantity, updateData }
+// ===========================================================================================================
+const deleteallproduct = async (req, res) => {
+  const id = req.params.id;
+  console.log("deleter", id);
+  const deleteallproduct = await CreatetproducModel.deleteOne({ _id: id });
+
+  console.log(deleteallproduct)
+};
+
+module.exports = { Createproduct, Productapi, AddToCart, getCart, deleteCartItem, AddQuantity, subQuantity, updateData, deleteallproduct }
