@@ -28,7 +28,7 @@ const protectRoute = async (req, res, next) => {
   } else {
     res.status({
       status: false,
-      msg: "something wrong",
+      msg: "tokan missing",
     });
   }
 };
