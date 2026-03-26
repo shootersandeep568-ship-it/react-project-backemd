@@ -1,9 +1,19 @@
 const express = require("express")
 const app = express();
 const cors = require("cors");
-const mongoose = require("mongoose");
 app.use(express.json());
 const multer = require("multer");
+require("dotenv").config();
+// require("./db/db")
+const mongoose = require('mongoose')
+
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(process.env.MONGO_URL);
+  console.log("Databse Connect");
+}
+
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "images/");
@@ -16,26 +26,14 @@ const storage = multer.diskStorage({
 
 
 const upload = multer({ storage: storage });
-
-require("dotenv").config();
 app.use(cors());
 app.use("/Product", require("./CodeRouter/CodeRouter"));
 app.use("/cart", upload.single("images"), require("./CodeRouter/ProductRouter"))
 
 
-
-
-
-main().catch((err) => console.log(err));
-async function main() {
-  await mongoose.connect(process.env.MONGO_URL);
-  console.log("Databse Connect");
-}
-
 app.get("", (req, res) => {
   res.json({ meessage: "success" })
 })
-
 
 app.listen(8000, () => {
   console.log("Server Create Successfull");

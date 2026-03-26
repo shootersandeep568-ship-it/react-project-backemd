@@ -7,7 +7,6 @@ const Signup = async (req, res) => {
   console.log(req.body);
   try {
     const { username, email, password } = req.body;
-
     // Check if user already exists
     const existingUser = await Codemodels.findOne({ email });
     const createUser = new Codemodels({

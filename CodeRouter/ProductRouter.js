@@ -12,7 +12,6 @@ const {
     updateData,
     deleteallproduct,
 } = require("../Codecontrollers/Productcontrollers")
-
 // ========================= router bnana==========================================================
 router.post("/Createproduct", Createproduct);
 router.get("/Productapi", Productapi);
@@ -23,7 +22,5 @@ router.post("/addQuantity/:id", AddQuantity);
 router.post("/subQuantity/:id", subQuantity);
 router.post("/updateData/:id", updateData);
 router.post("/deleteallproduct/:id", deleteallproduct);
-
-
 // ===================================================================================
 module.exports = router;

@@ -65,7 +65,7 @@ const AddToCart = async (req, res) => {
 const getCart = async (req, res) => {
   const existData = await Cart.find({}).populate("item")
   console.log(existData)
-  // res.json({ message: "true", data: existData })
+  res.json({ message: "true", data: existData })
 };
 
 // =========================================================================================================
@@ -84,7 +84,6 @@ const AddQuantity = async (req, res) => {
   const data = await Cart.findByIdAndUpdate(id);
   data.quantity = parseInt(data.quantity + 1);
   await data.save();
-
 };
 
 // =============================subQuantity===============================================================
@@ -95,7 +94,6 @@ const subQuantity = async (req, res) => {
   const data = await Cart.findByIdAndUpdate(id);
   data.quantity = parseInt(data.quantity - 1);
   await data.save();
-
 };
 
 // ================================updateData=================================================================
@@ -104,8 +102,6 @@ const updateData = async (req, res) => {
   console.log(req.body)
   const updateData = await CreatetproducModel.findByIdAndUpdate(req.params.id, req.body, { new: true })
   console.log(updateData)
-
-
 };
 
 // ===========================================================================================================
@@ -113,7 +109,6 @@ const deleteallproduct = async (req, res) => {
   const id = req.params.id;
   console.log("deleter", id);
   const deleteallproduct = await CreatetproducModel.deleteOne({ _id: id });
-
   console.log(deleteallproduct)
 };
 
