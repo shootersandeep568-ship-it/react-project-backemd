@@ -5,7 +5,6 @@ const fs = require("fs");
 
 // ========================== ======================================================
 const Createproduct = async (req, res) => {
-
   const { title, description, reting, price, category, pyandmy } = req.body;
   const Createproduct = new CreatetproducModel({
     title: title,
