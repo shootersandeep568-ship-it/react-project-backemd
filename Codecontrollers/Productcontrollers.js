@@ -14,10 +14,12 @@ const Createproduct = async (req, res) => {
     category: category,
     pyandmy: pyandmy,
 
+
     image: {
       data: fs.readFileSync("images/" + req.file.filename),
       contentType: "images/",
     },
+  
   });
   const saveProduct = await Createproduct.save();
   if (saveProduct) {
@@ -35,7 +37,7 @@ const Createproduct = async (req, res) => {
 };
 // ========================== api res bhejna =========================================================
 const Productapi = async (req, res) => {
-  // console.log(req.body)
+  console.log(req.body)
   try {
     const existuser = await CreatetproducModel.find({});
     res.json({
