@@ -47,10 +47,10 @@ const Signup = async (req, res) => {
 
 const Login = async (req, res) => {
   try {
-   const email =  req.body.Emailid
-   console.log(email)
+    const email = req.body.Emailid
+    console.log(email)
     const existuser = await Codemodels.findOne({ email: email });
-    console.log("hjghj",existuser)
+    console.log("hjghj", existuser)
     if (!existuser) {
       res.json({ message: "user not found", status: false });
     } else {
@@ -68,7 +68,5 @@ const Login = async (req, res) => {
     console.log("Error in login", error);
   }
 }
-
-
 // ============================================================================================
 module.exports = { Signup, Login }
